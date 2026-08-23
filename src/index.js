@@ -11,6 +11,4 @@ const prepareAndStartServer = () => {
         console.log(`Server Started on Port: ${PORT}`); 
     });
 }
-
-
 prepareAndStartServer();
