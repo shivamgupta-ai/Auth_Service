@@ -55,6 +55,23 @@ class UserService {
         }
     }
 
+    async isAuthenticated(token) {
+        try {
+            const response = this.verifyToken(token);
+            if(!response){
+                throw new Error('Invalid token');
+            }
+            const user = this.userRepository.getById(response.id);
+            if(!user){
+                throw new Error('User not found');
+            }
+            return user.id;
+        } catch(error) {
+            console.log("Something went wrong in token validation");
+            throw error;
+        }
+    }
+
     createToken(user) {
         try {
             const result = jwt.sign(user, JWT_KEY, {
@@ -85,6 +102,8 @@ class UserService {
             throw error;
         }
     }
+
+
 }
 
 module.exports = UserService;
