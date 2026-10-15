@@ -11,6 +11,8 @@ const apiRoutes = require('./routes/index');
 
 const UserService = require('./services/user-service');
 
+const db = require('./models/index');
+
 const app = express();
 
 const prepareAndStartServer = () => {
@@ -22,6 +24,17 @@ const prepareAndStartServer = () => {
     
     app.listen(PORT, async () => {
         console.log(`Server Started on Port: ${PORT}`); 
+
+        if(process.env.DB_SYNC){
+            db.sequelize.sync({alter: true});
+        }
+
+        // const u1 = await db.User.findByPk(12);
+        // const r1 = await db.Role.findByPk(2);
+        // // u1.addRole(r1);
+        // const response = await r1.getUsers();
+        // console.log(response);
+        
         
         // const repo = new UserRepository();
         // const response = await repo.getById(10);
