@@ -23,6 +23,12 @@ router.get(
     UserController.isAuthenticated
 );
 
+router.get(
+    '/isadmin',
+    AuthRequestValidators.validateIsAdmin,
+    UserController.isAdmin
+);
+
 // router.get('/dummy', (req, res) => {
 //     return res.status(200).json({
 //         message: "OK"
