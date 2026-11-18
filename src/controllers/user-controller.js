@@ -87,6 +87,26 @@ const isAuthenticated = async (req, res) => {
     }
 }
 
+const getById = async (req, res) => {
+    try {
+        const response = await userService.getById(req.params.id);
+        return res.status(200).json({
+            message: 'Successfully fetched user',
+            data: response,
+            success: true,
+            err: {}
+        });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            message: 'Something went wrong',
+            data: {},
+            success: false,
+            err: error.message
+        });
+    }
+}
+
 const isAdmin = async (req, res) => {
     try {
         const userId = req.body?.id || req.body?.userId || req.query?.id || req.query?.userId;
@@ -112,5 +132,6 @@ module.exports = {
     destroy,
     signIn,
     isAuthenticated,
-    isAdmin
+    isAdmin,
+    getById
 }

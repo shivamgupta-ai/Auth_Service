@@ -112,6 +112,19 @@ class UserService {
         }
     }
 
+    async getById(userId) {
+        try {
+            const user = await this.userRepository.getById(userId);
+            if (!user) {
+                throw new Error('User not found');
+            }
+            return user;
+        } catch(error) {
+            console.log('Something went wrong in service layer');
+            throw error;
+        }
+    }
+
     async isAdmin(userId){
         try {
             const response = await this.userRepository.isAdmin(userId);
